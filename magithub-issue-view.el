@@ -66,8 +66,7 @@
             (setq-local magithub-issue
                         (magithub-issue magithub-repo magithub-issue))
             (magithub-issue-comments magithub-issue)))
-        (let ((magit-refresh-args (list magithub-issue)))
-          (magit-refresh))
+        (magit-refresh)
         (message "refreshed"))
     (call-interactively #'magit-refresh)))
 
@@ -88,8 +87,9 @@ See also `magit-buffer-lock-functions'."
     (let-alist `((repo . ,(magithub-issue-repo issue))
                  (issue . ,issue))
       (list .repo.owner.login .repo.name .issue.number))))
-(push (cons 'magithub-issue-view-mode #'magithub-issue-view--lock-value)
-      magit-buffer-lock-functions)
+
+(cl-defmethod magit-buffer-value (&context (major-mode magithub-issue-view-mode))
+  #'magithub-issue-view--lock-value)
 
 (defun magithub-issue-view--buffer-name (_mode issue-lock-value)
   "Generate a buffer name for ISSUE-LOCK-VALUE.
@@ -111,7 +111,7 @@ See also `magithub-issue-view--lock-value'."
 Return the new buffer."
   (interactive (list (magithub-interactive-issue)))
   (let ((magit-generate-buffer-name-function #'magithub-issue-view--buffer-name))
-    (magit-mode-setup-internal #'magithub-issue-view-mode (list issue) t)
+    (magit-setup-buffer #'magithub-issue-view-mode t (list issue))
     (current-buffer)))
 
 (cl-defun magithub-issue-view-insert--generic (title text &optional type section-value &key face)
