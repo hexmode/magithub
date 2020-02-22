@@ -252,7 +252,7 @@ organization."
                  (ghubp-post-orgs-org-repos org repo)
                (ghubp-post-user-repos repo)))))
     (magithub--random-message "Creating repository on GitHub...done!")
-    (magit-status-internal default-directory)
+    (magit-status-setup-buffer default-directory)
     (magit-remote-add "origin" (magithub-repo--clone-url repo))
     (magit-refresh)
     (when (magit-rev-verify "HEAD")
@@ -406,7 +406,7 @@ See also `magithub-preferred-remote-method'."
 (defun magithub-clone--finished (user repo dir)
   "After finishing the clone, allow the user to jump to their new repo."
   (when (magithub-confirm-no-error 'clone-open-magit-status user repo dir)
-    (magit-status-internal (s-chop-suffix "/" dir))))
+    (magit-status-setup-buffer (s-chop-suffix "/" dir))))
 
 (defun magithub-visit-thing ()
   (interactive)

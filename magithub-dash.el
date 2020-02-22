@@ -53,7 +53,7 @@
   (interactive)
   (let ((magit-generate-buffer-name-function
          (lambda (&rest _) "*magithub-dash*")))
-    (magit-mode-setup #'magithub-dash-mode)))
+    (magit-setup-buffer #'magithub-dash-mode)))
 
 (defvaralias 'magithub-dash-map 'magithub-dash-mode-map
   "Old name of `magithub-dash-mode-map'.
