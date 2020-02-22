@@ -390,7 +390,7 @@ See also `magithub-preferred-remote-method'."
             (let ((default-directory dir)
                   (magit-clone-set-remote.pushDefault t))
               (mkdir dir t)
-              (magit-clone (magithub-repo--clone-url repo) dir)
+              (magit-clone-regular (magithub-repo--clone-url repo) dir nil)
               (add-function
                :after
                (process-sentinel magit-this-process)

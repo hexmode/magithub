@@ -38,6 +38,7 @@ ORG_LOAD_PATH  = -L ../dash
 ORG_LOAD_PATH += -L ../org/lisp
 ORG_LOAD_PATH += -L ../org/contrib/lisp
 ORG_LOAD_PATH += -L ../ox-texinfo+
+ORG_LOAD_PATH += -L ../magit
 endif
 
 INSTALL_INFO     ?= $(shell command -v ginstall-info || printf install-info)
